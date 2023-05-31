@@ -27,13 +27,24 @@ class DhikrTile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            sumDhikr,
-            style: TextStyle(
-              color: deepBlueButtonColor,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+          Container(
+            width: 25,
+            child: Center(
+              child: Text(
+                sumDhikr,
+                style: TextStyle(
+                  color: deepBlueButtonColor,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
+          ),
+          VerticalDivider(
+            thickness: 1,
+            indent: 10,
+            endIndent: 10,
+            color: whiteColor,
           ),
           Text(
             nameDhikr,
