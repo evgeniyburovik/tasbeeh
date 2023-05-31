@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
             // список сохраненных dhikr
             Expanded(
               child: Container(
-                padding: EdgeInsets.all(21),
+                padding: EdgeInsets.fromLTRB(21, 21, 21, 0),
                 decoration: BoxDecoration(
                   color: whiteColor,
                   borderRadius: BorderRadius.vertical(
@@ -179,6 +179,18 @@ class _HomePageState extends State<HomePage> {
                             DhikrTile(
                                 sumDhikr: '9',
                                 nameDhikr: 'Hellodf  fffff',
+                                dateDhikr: '14/34/56'),
+                            DhikrTile(
+                                sumDhikr: '15',
+                                nameDhikr: 'Hello fdfdfd',
+                                dateDhikr: '14/34/56'),
+                            DhikrTile(
+                                sumDhikr: '15',
+                                nameDhikr: 'Hello fdfdfd',
+                                dateDhikr: '14/34/56'),
+                            DhikrTile(
+                                sumDhikr: '15',
+                                nameDhikr: 'Hello fdfdfd',
                                 dateDhikr: '14/34/56'),
                             DhikrTile(
                                 sumDhikr: '15',
