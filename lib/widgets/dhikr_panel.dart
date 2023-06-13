@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
-
 import 'widgets.dart';
 
 class DhikrPanel extends StatelessWidget {
+  final String text;
+  final void Function()? onTapIncrement;
+  final void Function()? onTapReset;
+  final void Function()? nTapDecrement;
+
   const DhikrPanel({
     super.key,
+    required this.text,
+    required this.onTapIncrement,
+    required this.onTapReset,
+    required this.nTapDecrement,
   });
 
   @override
@@ -22,10 +30,11 @@ class DhikrPanel extends StatelessWidget {
             height: 35,
             width: 35,
             body: SvgPicture.asset('assets/icon/decrement.svg'),
+            onTap: nTapDecrement,
           ),
           const SizedBox(width: 31),
           // Количество dhikl
-          const CustomBotton(
+          CustomBotton(
             color: deepBlueButtonColor,
             width: 154,
             height: 154,
@@ -33,7 +42,7 @@ class DhikrPanel extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '33',
+                  text,
                   style: TextStyle(
                     color: whiteColor,
                     fontSize: 48,
@@ -49,6 +58,7 @@ class DhikrPanel extends StatelessWidget {
                 ),
               ],
             ),
+            onTap: onTapIncrement,
           ),
           const SizedBox(width: 31),
           // Кнопка инкремента
@@ -57,6 +67,7 @@ class DhikrPanel extends StatelessWidget {
             height: 35,
             width: 35,
             body: SvgPicture.asset('assets/icon/increment.svg'),
+            onTap: onTapReset,
           ),
         ],
       ),

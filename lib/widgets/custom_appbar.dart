@@ -21,7 +21,7 @@ class CostomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               padding: const EdgeInsets.all(4),
               height: 38,
-              child: const Row(
+              child: Row(
                 children: [
                   // Кнопки навигации
                   Expanded(
@@ -34,6 +34,7 @@ class CostomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           fontSize: 12,
                         ),
                       ),
+                      onTap: () {},
                     ),
                   ),
                   Expanded(
@@ -46,6 +47,7 @@ class CostomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           fontSize: 12,
                         ),
                       ),
+                      onTap: () {},
                     ),
                   ),
                 ],
@@ -58,6 +60,7 @@ class CostomAppBar extends StatelessWidget implements PreferredSizeWidget {
             width: 54,
             height: 38,
             body: SvgPicture.asset('assets/icon/burger_menu.svg'),
+            onTap: () {},
           )
         ],
       ),

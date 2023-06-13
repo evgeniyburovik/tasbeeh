@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tasbeeh/widgets/constants.dart';
+import 'package:sizer/sizer.dart';
+import 'package:tasbeeh/widgets/widgets.dart';
 
 class DhikrTile extends StatelessWidget {
   final String sumDhikr;
@@ -27,8 +27,8 @@ class DhikrTile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            width: 25,
+          SizedBox(
+            width: 12.w,
             child: Center(
               child: Text(
                 sumDhikr,
@@ -46,12 +46,17 @@ class DhikrTile extends StatelessWidget {
             endIndent: 10,
             color: whiteColor,
           ),
-          Text(
-            nameDhikr,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
+          SizedBox(
+            width: 30.w,
+            child: Text(
+              nameDhikr,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Text(
@@ -62,7 +67,12 @@ class DhikrTile extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SvgPicture.asset('assets/icon/more.svg'),
+          CustomBotton(
+            width: 10.w,
+            color: Colors.transparent,
+            body: SvgPicture.asset('assets/icon/more.svg'),
+            onTap: () {},
+          )
         ],
       ),
     );

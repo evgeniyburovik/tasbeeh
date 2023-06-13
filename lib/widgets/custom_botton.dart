@@ -5,6 +5,7 @@ class CustomBotton extends StatelessWidget {
   final double? width;
   final Color color;
   final Widget body;
+  final void Function()? onTap;
 
   const CustomBotton({
     super.key,
@@ -12,6 +13,7 @@ class CustomBotton extends StatelessWidget {
     this.height,
     required this.color,
     required this.body,
+    required this.onTap,
   });
 
   @override
@@ -21,7 +23,7 @@ class CustomBotton extends StatelessWidget {
       child: Material(
         color: color,
         child: InkWell(
-          onTap: () {},
+          onTap: onTap,
           child: Container(
             alignment: Alignment.center,
             height: height,

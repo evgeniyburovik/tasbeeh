@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'pages/home_page.dart';
 
 void main() {
@@ -10,13 +11,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Tasbeeh',
-      theme: ThemeData(
-        fontFamily: 'Gilroy',
-      ),
-      home: const HomePage(),
-    );
+    return Sizer(builder: (context, orientation, deviceType) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Tasbeeh',
+        theme: ThemeData(
+          fontFamily: 'Gilroy',
+        ),
+        home: const HomePage(),
+      );
+    });
   }
 }

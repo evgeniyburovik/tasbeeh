@@ -9,6 +9,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int counter = 0;
+
+  void increment() {
+    setState(() {
+      counter++;
+      print(counter);
+    });
+  }
+
+  void decrement() {
+    if (counter > 0) {
+      setState(() {
+        counter--;
+      });
+    }
+  }
+
+  void reset() {
+    setState(() {
+      counter = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,12 +44,17 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               // Dhikr панель
-              const DhikrPanel(),
+              DhikrPanel(
+                text: counter.toString(),
+                onTapIncrement: increment,
+                onTapReset: reset,
+                nTapDecrement: decrement,
+              ),
               const SizedBox(height: 20),
               // Кнопка сохранения dhikr
-              const CustomBotton(
+              CustomBotton(
                 color: whiteColor,
-                body: Text(
+                body: const Text(
                   'Save dhikr',
                   style: TextStyle(
                     color: deepBlueButtonColor,
@@ -34,6 +62,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 height: 45,
+                onTap: () {},
               ),
               const SizedBox(height: 20),
               // список сохраненных dhikr
@@ -65,19 +94,20 @@ class _HomePageState extends State<HomePage> {
                           child: ListView(
                             children: [
                               DhikrTile(
-                                  sumDhikr: '14',
-                                  nameDhikr: 'Hello dddfdff',
+                                  sumDhikr: '1434',
+                                  nameDhikr:
+                                      'Hello dddfdff dfdfdfdf f dfdfdfdfd dfdfdfdfdf  dfdfdfd',
                                   dateDhikr: '14/34/56'),
                               DhikrTile(
                                   sumDhikr: '9',
                                   nameDhikr: 'Hellodf  fffff',
                                   dateDhikr: '14/34/56'),
                               DhikrTile(
-                                  sumDhikr: '15',
+                                  sumDhikr: '152',
                                   nameDhikr: 'Hello fdfdfd',
                                   dateDhikr: '14/34/56'),
                               DhikrTile(
-                                  sumDhikr: '15',
+                                  sumDhikr: '1',
                                   nameDhikr: 'Hello fdfdfd',
                                   dateDhikr: '14/34/56'),
                               DhikrTile(
