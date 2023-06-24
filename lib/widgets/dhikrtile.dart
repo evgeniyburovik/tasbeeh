@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tasbeeh/widgets/widgets.dart';
+
+import 'widgets.dart';
 
 class DhikrTile extends StatelessWidget {
   final String sumDhikr;

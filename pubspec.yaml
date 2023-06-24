@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  bloc: ^8.1.0
   flutter:
     sdk: flutter
 
@@ -37,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.6
   sizer: ^2.0.15
+  flutter_bloc: ^8.1.1
 
 dev_dependencies:
   flutter_test:

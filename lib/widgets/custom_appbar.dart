@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../cubit/nav_bar/nav_bar_cubit.dart';
 import 'widgets.dart';
 
 class CostomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -21,34 +24,14 @@ class CostomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               padding: const EdgeInsets.all(4),
               height: 38,
-              child: Row(
+              child: const Row(
                 children: [
                   // Кнопки навигации
                   Expanded(
-                    child: CustomBotton(
-                      color: deepBlueButtonColor,
-                      body: Text(
-                        'Activiti',
-                        style: TextStyle(
-                          color: whiteColor,
-                          fontSize: 12,
-                        ),
-                      ),
-                      onTap: () {},
-                    ),
+                    child: _ActivitiBottton(),
                   ),
                   Expanded(
-                    child: CustomBotton(
-                      color: whiteColor,
-                      body: Text(
-                        'Saved',
-                        style: TextStyle(
-                          color: greyTextColor,
-                          fontSize: 12,
-                        ),
-                      ),
-                      onTap: () {},
-                    ),
+                    child: _SavedBotton(),
                   ),
                 ],
               ),
@@ -69,4 +52,60 @@ class CostomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(50.0);
+}
+
+class _SavedBotton extends StatelessWidget {
+  const _SavedBotton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NavBarCubit, NavBarInitial>(
+      builder: (context, state) {
+        return CustomBotton(
+          color: state.savedColor,
+          body: Text(
+            'Saved',
+            style: TextStyle(
+              color: state.sevedTextColor,
+              fontSize: 12,
+            ),
+          ),
+          onTap: () {
+            context.read<NavBarCubit>().tapSaved();
+            context.read<DhikrVisibleCubit>().dhikrNotVisible();
+          },
+        );
+      },
+    );
+  }
+}
+
+class _ActivitiBottton extends StatelessWidget {
+  const _ActivitiBottton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NavBarCubit, NavBarInitial>(
+      builder: (context, state) {
+        return CustomBotton(
+          color: state.activityColor,
+          body: Text(
+            'Activiti',
+            style: TextStyle(
+              color: state.activityTextColor,
+              fontSize: 12,
+            ),
+          ),
+          onTap: () {
+            context.read<NavBarCubit>().tapActiviti();
+            context.read<DhikrVisibleCubit>().dhikrVisible();
+          },
+        );
+      },
+    );
+  }
 }
