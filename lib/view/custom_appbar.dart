@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit/nav_bar/nav_bar_cubit.dart';
-import 'widgets.dart';
+import '../widgets/widgets.dart';
 
 class CostomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CostomAppBar({

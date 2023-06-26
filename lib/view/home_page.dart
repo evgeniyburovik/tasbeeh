@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/dhikrs/dhikrs_bloc.dart';
 import '../cubit/nav_bar/nav_bar_cubit.dart';
+import '../screens/add_dhikr_screen.dart';
 import '../widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,29 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int counter = 0;
-
-  void increment() {
-    setState(() {
-      counter++;
-      print(counter);
-    });
-  }
-
-  void decrement() {
-    if (counter > 0) {
-      setState(() {
-        counter--;
-      });
-    }
-  }
-
-  void reset() {
-    setState(() {
-      counter = 0;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,12 +30,7 @@ class _HomePageState extends State<HomePage> {
                   // Dhikr панель
                   Visibility(
                     visible: state.dhikrVisibility,
-                    child: DhikrPanel(
-                      text: counter.toString(),
-                      onTapIncrement: increment,
-                      onTapReset: reset,
-                      nTapDecrement: decrement,
-                    ),
+                    child: const DhikrPanel(),
                   ),
                   state.dhikrVisibility
                       ? const SizedBox(height: 20)
@@ -69,6 +43,7 @@ class _HomePageState extends State<HomePage> {
                   state.dhikrVisibility
                       ? const SizedBox(height: 20)
                       : const SizedBox(height: 0),
+
                   // список сохраненных dhikr
                   Expanded(
                     child: Container(
@@ -78,53 +53,23 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.vertical(
                             top: Radius.circular(10), bottom: Radius.zero),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Column(
                           children: [
-                            const Row(
+                            Row(
                               children: [
                                 Text('Last saved dhikrs'),
                               ],
                             ),
-                            const Divider(
+                            Divider(
                               height: 7,
                               thickness: 2,
                               endIndent: 268,
                               color: deepBlueButtonColor,
                             ),
-                            const SizedBox(height: 21),
+                            SizedBox(height: 21),
                             // listViev of saved dhikr
-                            Expanded(
-                              child: ListView(
-                                children: [
-                                  DhikrTile(
-                                      sumDhikr: '1434',
-                                      nameDhikr:
-                                          'Hello dddfdff dfdfdfdf f dfdfdfdfd dfdfdfdfdf  dfdfdfd',
-                                      dateDhikr: '14/34/56'),
-                                  DhikrTile(
-                                      sumDhikr: '9',
-                                      nameDhikr: 'Hellodf  fffff',
-                                      dateDhikr: '14/34/56'),
-                                  DhikrTile(
-                                      sumDhikr: '152',
-                                      nameDhikr: 'Hello fdfdfd',
-                                      dateDhikr: '14/34/56'),
-                                  DhikrTile(
-                                      sumDhikr: '1',
-                                      nameDhikr: 'Hello fdfdfd',
-                                      dateDhikr: '14/34/56'),
-                                  DhikrTile(
-                                      sumDhikr: '15',
-                                      nameDhikr: 'Hello fdfdfd',
-                                      dateDhikr: '14/34/56'),
-                                  DhikrTile(
-                                      sumDhikr: '15',
-                                      nameDhikr: 'Hello fdfdfd',
-                                      dateDhikr: '14/34/56'),
-                                ],
-                              ),
-                            )
+                            _ListViev(),
                           ],
                         ),
                       ),
@@ -136,6 +81,42 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
+    );
+  }
+}
+
+class _ListViev extends StatelessWidget {
+  const _ListViev({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DhikrsBloc, DhikrsState>(
+      builder: (context, state) {
+        if (state is DhikrsLoding) {
+          return const CircularProgressIndicator();
+        }
+        if (state is DhikrsLoaded) {
+          return Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.dhikrs.length,
+              itemBuilder: (BuildContext context, int index) {
+                index = (state.dhikrs.length - 1) - index;
+                return DhikrTile(
+                  dhikr: state.dhikrs[index],
+                  sumDhikr: state.dhikrs[index].count,
+                  nameDhikr: state.dhikrs[index].title ?? '',
+                  dateDhikr: state.dhikrs[index].date,
+                );
+              },
+            ),
+          );
+        } else {
+          return Text('Что-то пошло не по плану');
+        }
+      },
     );
   }
 }
@@ -157,7 +138,12 @@ class _DhikrSaveBotton extends StatelessWidget {
         ),
       ),
       height: 45,
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddDhikrScreen()),
+        );
+      },
     );
   }
 }

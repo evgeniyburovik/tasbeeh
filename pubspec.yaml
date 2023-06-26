@@ -39,6 +39,10 @@ dependencies:
   flutter_svg: ^2.0.6
   sizer: ^2.0.15
   flutter_bloc: ^8.1.1
+  equatable: ^2.0.5
+  uuid: ^3.0.6
+  intl: ^0.18.1
+  flutter_slidable: ^3.0.0
 
 dev_dependencies:
   flutter_test:
