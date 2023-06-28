@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbeeh/bloc/dhikrs/dhikrs_bloc.dart';
-import 'package:uuid/uuid.dart';
 
 import 'bloc/counter/counter_bloc.dart';
 import 'cubit/nav_bar/nav_bar_cubit.dart';
