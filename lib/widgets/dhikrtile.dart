@@ -36,7 +36,6 @@ class DhikrTile extends StatelessWidget {
               icon: Icons.delete,
               backgroundColor: const Color.fromARGB(255, 247, 69, 87),
               borderRadius: BorderRadius.circular(100),
-              spacing: 100,
             ),
           ],
         ),
