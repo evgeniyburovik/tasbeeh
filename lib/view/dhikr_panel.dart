@@ -8,7 +8,7 @@ class DhikrPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CounterBloc, CounterInitial>(
+    return BlocBuilder<CounterBloc, int>(
       builder: (context, state) {
         return Container(
           padding: const EdgeInsets.all(25),
@@ -37,7 +37,7 @@ class DhikrPanel extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      state.count.toString(),
+                      state.toString(),
                       style: TextStyle(
                         color: whiteColor,
                         fontSize: 48,

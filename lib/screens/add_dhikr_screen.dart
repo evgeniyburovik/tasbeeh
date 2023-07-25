@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/counter/counter_bloc.dart';
 import '../bloc/dhikrs/dhikrs_bloc.dart';
-import '../models/dhikr_model.dart';
+import '../data/models/dhikr_model.dart';
 import '../widgets/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
@@ -24,7 +24,7 @@ class AddDhikrScreen extends StatelessWidget {
         child: Card(
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: BlocBuilder<CounterBloc, CounterInitial>(
+            child: BlocBuilder<CounterBloc, int>(
               builder: (context, state) {
                 return BlocListener<DhikrsBloc, DhikrsState>(
                   listener: (context, state) {
@@ -48,11 +48,11 @@ class AddDhikrScreen extends StatelessWidget {
                   },
                   child: Column(
                     children: [
-                      _stateField('Dhikrs', state.count.toString()),
-                      SizedBox(height: 10),
+                      _stateField('Dhikrs', state.toString()),
+                      const SizedBox(height: 10),
                       _stateField('Date  ',
                           DateFormat('dd.MM.yyyy').format(DateTime.now())),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       _inputField('Description', controllerTitle),
                       const SizedBox(height: 40),
                       CustomBotton(
@@ -63,14 +63,8 @@ class AddDhikrScreen extends StatelessWidget {
                             style: TextStyle(color: whiteColor),
                           ),
                           onTap: () {
-                            var dhikr = Dhikr(
-                                id: Uuid().v4(),
-                                count: state.count.toString(),
-                                title: controllerTitle.value.text,
-                                date: DateFormat('dd.MM.yyyy')
-                                    .format(DateTime.now()));
                             context.read<DhikrsBloc>().add(
-                                  AddDhikr(dhikr: dhikr),
+                                  AddDhikr(controllerTitle.value.text, state),
                                 );
                             context
                                 .read<CounterBloc>()

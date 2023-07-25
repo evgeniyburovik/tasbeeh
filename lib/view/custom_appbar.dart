@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tasbeeh/view/menu_page.dart';
 
 import '../cubit/nav_bar/nav_bar_cubit.dart';
 import '../widgets/widgets.dart';
@@ -43,7 +44,12 @@ class CostomAppBar extends StatelessWidget implements PreferredSizeWidget {
             width: 54,
             height: 38,
             body: SvgPicture.asset('assets/icon/burger_menu.svg'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MenuPage()),
+              );
+            },
           )
         ],
       ),

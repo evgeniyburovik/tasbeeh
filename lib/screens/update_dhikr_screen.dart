@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tasbeeh/models/dhikr_model.dart';
+import 'package:tasbeeh/data/models/dhikr_model.dart';
 import '../bloc/dhikrs/dhikrs_bloc.dart';
 import '../widgets/widgets.dart';
 
@@ -46,9 +46,9 @@ class UpdateDhikrScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         _stateField('Dhikrs', dhikr.count),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         _stateField('Date  ', dhikr.date),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         _inputField('Описание', controllerTitle),
                         const SizedBox(height: 40),
                         CustomBotton(
@@ -59,14 +59,8 @@ class UpdateDhikrScreen extends StatelessWidget {
                               style: TextStyle(color: whiteColor),
                             ),
                             onTap: () {
-                              print(state);
                               context.read<DhikrsBloc>().add(
-                                    UpdateDhikr(
-                                      dhikr: dhikr.copyWith(
-                                          title: controllerTitle.value.text),
-                                    ),
-                                  );
-                              print(state);
+                                  UpdateDhikr(controllerTitle.text, dhikr.id));
                               Navigator.pop(context);
                             })
                       ],
@@ -115,7 +109,7 @@ Row _stateField(
         '$field → ',
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
-      SizedBox(width: 5),
+      const SizedBox(width: 5),
       Text(value,
           style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
     ],
