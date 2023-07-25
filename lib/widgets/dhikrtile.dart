@@ -5,7 +5,7 @@ import 'package:sizer/sizer.dart';
 import 'package:tasbeeh/screens/update_dhikr_screen.dart';
 
 import '../bloc/dhikrs/dhikrs_bloc.dart';
-import '../models/dhikr_model.dart';
+import '../data/models/dhikr_model.dart';
 import 'widgets.dart';
 
 class DhikrTile extends StatelessWidget {
@@ -32,7 +32,7 @@ class DhikrTile extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (context) =>
-                  context.read<DhikrsBloc>().add(DeleteDhikr(dhikr: dhikr)),
+                  context.read<DhikrsBloc>().add(DeleteDhikr(dhikr.id)),
               icon: Icons.delete,
               backgroundColor: const Color.fromARGB(255, 247, 69, 87),
               borderRadius: BorderRadius.circular(100),

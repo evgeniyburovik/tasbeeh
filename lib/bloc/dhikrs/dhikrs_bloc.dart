@@ -1,64 +1,56 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:tasbeeh/data/repository/dhikr_repository.dart';
 
-import '../../models/dhikr_model.dart';
+import '../../data/models/dhikr_model.dart';
 
 part 'dhikrs_event.dart';
 part 'dhikrs_state.dart';
 
-enum SortOrder { ascending, descending }
+class DhikrsBloc extends HydratedBloc<DhikrsEvent, DhikrsState> {
+  final DhikrRepository dhikrRepository;
 
-class DhikrsBloc extends Bloc<DhikrsEvent, DhikrsState> {
-  SortOrder sortOrder = SortOrder.ascending;
-
-  DhikrsBloc() : super(DhikrsLoding()) {
-    on<LoadDhikrs>(_onLoadDhikrs);
-    on<AddDhikr>(_onAddDhikr);
-    on<UpdateDhikr>(_onUpdateDhikr);
-    on<DeleteDhikr>(_onDeleteDhikr);
+  DhikrsBloc(this.dhikrRepository)
+      : super(DhikrsLoaded(dhikrRepository.dhikrs)) {
+    on<AddDhikr>((event, emit) async {
+      emit(DhikrsLoding());
+      final updatedDhikrList =
+          dhikrRepository.addDhikr(event.title, event.count);
+      emit(DhikrsLoaded(updatedDhikrList));
+    });
+    on<UpdateDhikr>((event, emit) async {
+      emit(DhikrsLoding());
+      final updatedDhikrList =
+          dhikrRepository.updateDhikrState(event.title, event.id);
+      emit(DhikrsLoaded(updatedDhikrList));
+    });
+    on<DeleteDhikr>((event, emit) {
+      emit(DhikrsLoding());
+      final updatedDhikrList = dhikrRepository.removeDhikr(event.id);
+      emit(DhikrsLoaded(updatedDhikrList));
+    });
   }
 
-  void _onLoadDhikrs(LoadDhikrs event, Emitter<DhikrsState> emit) {
-    emit(
-      DhikrsLoaded(dhikrs: event.dhikrs),
-    );
-  }
+  @override
+  DhikrsState? fromJson(Map<String, dynamic> json) {
+    try {
+      final dhikrs = (json['dhikrs'] as List)
+          .map((e) => Dhikr.fromJson(e as Map<String, dynamic>))
+          .toList();
 
-  void _onAddDhikr(AddDhikr event, Emitter<DhikrsState> emit) {
-    final state = this.state;
-
-    if (state is DhikrsLoaded) {
-      emit(
-        DhikrsLoaded(
-          dhikrs: List.from(state.dhikrs)..add(event.dhikr),
-        ),
-      );
+      dhikrRepository.dhikrs = dhikrs;
+      return DhikrsLoaded(dhikrs);
+    } catch (e) {
+      return null;
     }
   }
 
-  void _onUpdateDhikr(UpdateDhikr event, Emitter<DhikrsState> emit) {
-    final state = this.state;
-
+  @override
+  Map<String, dynamic>? toJson(DhikrsState state) {
     if (state is DhikrsLoaded) {
-      List<Dhikr> dhikrs = (state.dhikrs.map((dhikr) {
-        return dhikr.id == event.dhikr.id ? event.dhikr : dhikr;
-      })).toList();
-      emit(
-        DhikrsLoaded(dhikrs: dhikrs),
-      );
-    }
-  }
-
-  void _onDeleteDhikr(DeleteDhikr event, Emitter<DhikrsState> emit) {
-    final state = this.state;
-
-    if (state is DhikrsLoaded) {
-      List<Dhikr> dhikrs = state.dhikrs.where((dhikr) {
-        return dhikr.id != event.dhikr.id;
-      }).toList();
-      emit(
-        DhikrsLoaded(dhikrs: dhikrs),
-      );
+      return state.toJson();
+    } else {
+      return null;
     }
   }
 }

@@ -81,9 +81,7 @@ class HomePage extends StatelessWidget {
 }
 
 class _ListViev extends StatelessWidget {
-  const _ListViev({
-    super.key,
-  });
+  const _ListViev();
 
   @override
   Widget build(BuildContext context) {
@@ -92,21 +90,35 @@ class _ListViev extends StatelessWidget {
         if (state is DhikrsLoding) {
           return const CircularProgressIndicator();
         }
-        if (state is DhikrsLoaded) {
+        if (state is DhikrsLoaded && state.dhikrs.isNotEmpty) {
           return Expanded(
             child: ListView.builder(
               shrinkWrap: true,
               itemCount: state.dhikrs.length,
               itemBuilder: (BuildContext context, int index) {
+                // Инверсия списка
                 index = (state.dhikrs.length - 1) - index;
                 return DhikrTile(
                   dhikr: state.dhikrs[index],
                   sumDhikr: state.dhikrs[index].count,
-                  nameDhikr: state.dhikrs[index].title ?? '',
+                  nameDhikr: state.dhikrs[index].title,
                   dateDhikr: state.dhikrs[index].date,
                 );
               },
             ),
+          );
+        } else if (state is DhikrsLoaded && state.dhikrs.isEmpty) {
+          return const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Keep your first Dhikr'),
+              Text(
+                '👆🏻',
+                style: TextStyle(
+                  fontSize: 30,
+                ),
+              ),
+            ],
           );
         } else {
           return Text('Что-то пошло не по плану');
@@ -117,9 +129,7 @@ class _ListViev extends StatelessWidget {
 }
 
 class _DhikrSaveBotton extends StatelessWidget {
-  const _DhikrSaveBotton({
-    super.key,
-  });
+  const _DhikrSaveBotton();
 
   @override
   Widget build(BuildContext context) {

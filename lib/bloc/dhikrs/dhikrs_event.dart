@@ -7,38 +7,31 @@ abstract class DhikrsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadDhikrs extends DhikrsEvent {
-  final List<Dhikr> dhikrs;
-
-  const LoadDhikrs({this.dhikrs = const <Dhikr>[]});
-
-  @override
-  List<Object> get props => [dhikrs];
-}
-
 class AddDhikr extends DhikrsEvent {
-  final Dhikr dhikr;
+  final String title;
+  final int count;
 
-  const AddDhikr({required this.dhikr});
+  const AddDhikr(this.title, this.count);
 
   @override
-  List<Object> get props => [dhikr];
+  List<Object> get props => [title, count];
 }
 
 class UpdateDhikr extends DhikrsEvent {
-  final Dhikr dhikr;
+  final String title;
+  final String id;
 
-  const UpdateDhikr({required this.dhikr});
+  const UpdateDhikr(this.title, this.id);
 
   @override
-  List<Object> get props => [dhikr];
+  List<Object> get props => [title, id];
 }
 
 class DeleteDhikr extends DhikrsEvent {
-  final Dhikr dhikr;
+  final String id;
 
-  const DeleteDhikr({required this.dhikr});
+  const DeleteDhikr(this.id);
 
   @override
-  List<Object> get props => [dhikr];
+  List<Object> get props => [id];
 }
